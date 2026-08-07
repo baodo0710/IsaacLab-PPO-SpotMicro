@@ -69,7 +69,7 @@ Six Gym-registered tasks cover the full training-to-deployment lifecycle:
 <!-- TODO: Add terrain comparison image -->
 <div align="center">
 
-![Terrain Types](docs/images/terrain_comparison.png)
+![Terrain Types](docs/images/terrain_comparison.png)\
 *Flat (top) vs. procedurally generated rough terrain (bottom)*
 
 </div>
