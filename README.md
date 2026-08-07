@@ -88,8 +88,6 @@ Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
 | Framework | Status | Notes |
 |---|---|---|
 | **RSL-RL** | ✅ Ready | On-policy PPO with recurrent state encoders |
-| **RL-Games** | ✅ Ready | GPU-accelerated PPO with adaptive learning rates |
-| **SKRL** | ✅ Ready | Modular RL with shared observation normalization |
 
 <!-- TODO: Add training curves comparison -->
 <div align="center">
@@ -133,10 +131,6 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Flat-Rex-v0 --headless
 python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 ```
 
-**Standing task (SKRL):**
-```bash
-python scripts/skrl/train.py --task Isaac-Stand-Rex-v0 --headless
-```
 
 <div align="center">
 
