@@ -1,7 +1,8 @@
 # Rex — Quadruped Locomotion in Isaac Lab
 
 <div align="center">
-
+    
+![Rex Quadruped Render](docs/images/rex_hero.png)
 **A high-fidelity reinforcement learning framework for SpotMicro-class quadruped locomotion**
 
 [![Isaac Lab](https://img.shields.io/badge/Built%20on-Isaac%20Lab-orange)](https://isaac-sim.github.io/IsaacLab/)
