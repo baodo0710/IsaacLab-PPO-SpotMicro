@@ -95,17 +95,6 @@ rex/
     ├── skrl_flat_ppo_cfg.yaml
     └── skrl_rough_ppo_cfg.yaml
 ```
-
-<!-- TODO: Add pipeline diagram -->
-<div align="center">
-
-![Training Pipeline](docs/images/training_pipeline.png)
-*Manager-based RL pipeline: Observations → Policy → Actuator Model → Simulation*
-
-</div>
-
----
-
 ## Multi-Framework RL Support
 
 Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
@@ -113,14 +102,6 @@ Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
 | Framework | Status | Notes |
 |---|---|---|
 | **RSL-RL** | ✅ Ready | On-policy PPO with recurrent state encoders |
-
-<!-- TODO: Add training curves comparison -->
-<div align="center">
-
-![Training Curves](docs/images/training_curves.png)
-*Sample learning curves: mean reward vs. policy iterations (4096 environments)*
-
-</div>
 
 ---
 
@@ -168,18 +149,7 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 
 ## Results
 
-| Task | Mean Reward | Success Rate | Notes |
-|---|---|---|---|
-| Flat Velocity Tracking | --- | --- | In training |
-| Rough Velocity Tracking | --- | --- | In training |
-| Standing Balance | --- | --- | In training |
-
-<div align="center">
-
-![Gait Analysis](docs/images/gait_analysis.png)
-*Foot contact schedule and base velocity tracking*
-
-</div>
+Resulting videos are attached in docs folder
 
 ---
 
@@ -187,36 +157,10 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 
 Trained policies are cross-validated in a secondary simulator before hardware deployment, to catch policy artifacts specific to Isaac Lab's physics before they hit the real robot.
 
-<!-- TODO: Add sim2sim code screenshot / comparison plot here -->
-<div align="center">
-
-![Sim-to-Sim Validation](docs/images/sim2sim_validation.png)
-*Policy transfer comparison: Isaac Lab vs. secondary simulator*
-
-</div>
-
----
-
-## Roadmap
-
-- [x] Base velocity-tracking locomotion framework
-- [x] Flat & rough terrain environment variants
-- [x] Standing / balance task
-- [x] Multi-framework RL agent configs (RSL-RL, RL-Games, SKRL)
-- [ ] Rough-terrain class naming alignment (`RexRoughEnvCfg`)
-- [ ] Symmetry-augmented RSL-RL runner configs
-- [ ] Sim-to-real validation pipeline
-- [ ] Hardware deployment on SpotMicro
-
-<div align="center">
-
-![Hardware Platform](docs/images/hardware_platform.jpg)
-*Target hardware: SpotMicro with MG996R servos*
-
-</div>
+Sim-to-Sim videos are attached in docs folder
 
 ---
 
 ## License
 
-*Pending* — Consider adding an open-source license (e.g., MIT or BSD-3-Clause) before public release.
+*Pending*
