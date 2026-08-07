@@ -1,25 +1,60 @@
-# Rex — Isaac Lab Locomotion Task Extension
+# Rex — Quadruped Locomotion in Isaac Lab
 
-A custom [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) manager-based RL task
-extension for **Rex**, a small servo-actuated quadruped (`quad_ws`, USD asset
-`spot2.usd`), built on Isaac Lab's velocity-tracking locomotion framework, a modified version using SpotMicro (https://spotmicroai.readthedocs.io/en/latest/).
+&lt;div align="center"&gt;
 
-Six Gym tasks are registered:
+&lt;!-- TODO: Add hero image / robot render here --&gt;
+![Rex Quadruped Render](docs/images/rex_hero.png)
 
-| Task ID | Config | Description |
+**A high-fidelity reinforcement learning framework for SpotMicro-class quadruped locomotion**
+
+[![Isaac Lab](https://img.shields.io/badge/Built%20on-Isaac%20Lab-orange)](https://isaac-sim.github.io/IsaacLab/)
+[![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-Pending-lightgrey)]()
+
+&lt;/div&gt;
+
+---
+
+## Overview
+
+**Rex** is a custom manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
+
+The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platform and driven by realistic MG996R servo actuator dynamics.
+
+&lt;!-- TODO: Add side-by-side sim vs. real photo here --&gt;
+&lt;div align="center"&gt;
+
+![Simulation vs Reality](docs/images/sim_vs_real.png)
+*Left: Isaac Lab simulation | Right: Target hardware platform*
+
+&lt;/div&gt;
+
+---
+
+## Environments
+
+Six Gym-registered tasks cover the full training-to-deployment lifecycle:
+
+| Task ID | Config Class | Description |
 |---|---|---|
-| `Isaac-Velocity-Flat-Rex-v0` | `flat_env_cfg.RexFlatEnvCfg` | Velocity tracking on flat terrain |
-| `Isaac-Velocity-Flat-Rex-Play-v0` | `flat_env_cfg.RexFlatEnvCfg_PLAY` | Flat, no domain randomization (eval/deploy) |
-| `Isaac-Velocity-Rough-Rex-v0` | `rough_env_cfg.RexRoughEnvCfg`* | Velocity tracking on rough/generated terrain |
-| `Isaac-Velocity-Rough-Rex-Play-v0` | `rough_env_cfg.RexRoughEnvCfg_PLAY`* | Rough, no domain randomization (eval/deploy) |
-| `Isaac-Stand-Rex-v0` | `stand_env_cfg.RexStandEnvCfg` | Standing/balance task, zero velocity command |
-| `Isaac-Stand-Rex-Play-v0` | `stand_env_cfg.RexStandEnvCfg_PLAY` | Standing eval variant |
+| `Isaac-Velocity-Flat-Rex-v0` | `RexFlatEnvCfg` | Velocity tracking on flat terrain with full domain randomization |
+| `Isaac-Velocity-Flat-Rex-Play-v0` | `RexFlatEnvCfg_PLAY` | Flat terrain, zero randomization — optimized for evaluation & sim-to-real |
+| `Isaac-Velocity-Rough-Rex-v0` | `RexRoughEnvCfg` | Velocity tracking on procedurally generated rough terrain |
+| `Isaac-Velocity-Rough-Rex-Play-v0` | `RexRoughEnvCfg_PLAY` | Rough terrain evaluation variant |
+| `Isaac-Stand-Rex-v0` | `RexStandEnvCfg` | Static balancing with zero velocity command |
+| `Isaac-Stand-Rex-Play-v0` | `RexStandEnvCfg_PLAY` | Standing policy evaluation variant |
 
-RL framework configs are provided for **rsl_rl**, **rl_games**, and **skrl**
-under `rex/agents/`.
+&lt;!-- TODO: Add terrain comparison image --&gt;
+&lt;div align="center"&gt;
 
+![Terrain Types](docs/images/terrain_comparison.png)
+*Flat (top) vs. procedurally generated rough terrain (bottom)*
 
-## Layout
+&lt;/div&gt;
+
+---
+
+## System Architecture
 
 ```
 rex/
