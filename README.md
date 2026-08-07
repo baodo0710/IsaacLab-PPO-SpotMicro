@@ -2,7 +2,7 @@
 
 A custom [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) manager-based RL task
 extension for **Rex**, a small servo-actuated quadruped (`quad_ws`, USD asset
-`spot2.usd`), built on Isaac Lab's velocity-tracking locomotion framework.
+`spot2.usd`), built on Isaac Lab's velocity-tracking locomotion framework, a modified version using SpotMicro (https://spotmicroai.readthedocs.io/en/latest/).
 
 Six Gym tasks are registered:
 
