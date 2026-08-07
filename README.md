@@ -18,8 +18,6 @@ Six Gym tasks are registered:
 RL framework configs are provided for **rsl_rl**, **rl_games**, and **skrl**
 under `rex/agents/`.
 
-\* See **Known issue** below — these two entry points currently point at class
-names that don't exist yet in `rough_env_cfg.py`.
 
 ## Layout
 
