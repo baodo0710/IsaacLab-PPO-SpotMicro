@@ -14,7 +14,7 @@
 
 ## Overview
 
-**Rex** is a custom manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
+**Rex** is a custom manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
 
 The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platform and driven by realistic MG996R servo actuator dynamics.
 
@@ -177,19 +177,6 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 </div>
 
 ---
-
-## Citation
-
-If you use Rex in your research, please consider citing:
-
-```bibtex
-@misc{rex2026,
-  title={Rex: SpotMicro Locomotion in Isaac Lab},
-  author={Your Name},
-  year={2026},
-  url={https://github.com/yourusername/rex}
-}
-```
 
 ## License
 
