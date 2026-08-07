@@ -60,23 +60,6 @@ Update this to wherever `spot2.usd` lives on the machine actually running
 training, or swap it for a Nucleus/relative path before pushing to a shared
 remote.
 
-## Known issue
-
-`rough_env_cfg.py` defines its classes as `RexFlatEnvCfg` / `RexFlatEnvCfg_PLAY`
-— the same names used in `flat_env_cfg.py` — instead of `RexRoughEnvCfg` /
-`RexRoughEnvCfg_PLAY`. That's what `__init__.py`'s `gym.register()` calls for
-`Isaac-Velocity-Rough-Rex-v0` and `Isaac-Velocity-Rough-Rex-Play-v0` expect,
-and it's also what `stand_env_cfg.py` tries to import
-(`from .rough_env_cfg import RexRoughEnvCfg`). As uploaded, both the rough and
-stand tasks will fail to resolve at `gym.make()` time. Rename the two classes
-in `rough_env_cfg.py` to fix all three affected tasks.
-
-Separately, `rsl_rl_ppo_cfg.py` doesn't yet define `RexFlatPPORunnerWithSymmetryCfg`
-or `RexRoughPPORunnerWithSymmetryCfg`, which `__init__.py` references for the
-`rsl_rl_with_symmetry_cfg_entry_point` kwargs — only relevant if you actually
-train with the symmetry-augmented rsl_rl variant.
-
 ## License
 
-No license file is included yet — add one (e.g. MIT, BSD-3-Clause to match
-Isaac Lab's own convention) before treating this as reusable by others.
+No license file is included yet 
