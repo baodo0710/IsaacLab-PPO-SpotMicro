@@ -182,6 +182,20 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 
 ---
 
+## Sim-to-Sim Validation
+
+Trained policies are cross-validated in a secondary simulator before hardware deployment, to catch policy artifacts specific to Isaac Lab's physics before they hit the real robot.
+
+<!-- TODO: Add sim2sim code screenshot / comparison plot here -->
+<div align="center">
+
+![Sim-to-Sim Validation](docs/images/sim2sim_validation.png)
+*Policy transfer comparison: Isaac Lab vs. secondary simulator*
+
+</div>
+
+---
+
 ## Roadmap
 
 - [x] Base velocity-tracking locomotion framework
