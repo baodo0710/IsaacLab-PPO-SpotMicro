@@ -2,7 +2,7 @@
 
 <div align="center">
     
-![Rex Quadruped Render](docs/images/rex_hero.png)
+![Rex Quadruped Render](docs/images/rex_hero.png)\
 **A high-fidelity reinforcement learning framework for SpotMicro-class quadruped locomotion**
 
 [![Isaac Lab](https://img.shields.io/badge/Built%20on-Isaac%20Lab-orange)](https://isaac-sim.github.io/IsaacLab/)
@@ -22,7 +22,7 @@ The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platfor
 <!-- TODO: Add side-by-side sim vs. real photo here -->
 <div align="center">
 
-![Simulation vs Reality](docs/images/sim_vs_real.png)
+![Simulation vs Reality](docs/images/sim_vs_real.png)\
 *Left: Isaac Lab simulation | Right: Target hardware platform*
 
 </div>
@@ -36,7 +36,7 @@ The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platfor
 <!-- TODO: Add CAD model renders/screenshots here -->
 <div align="center">
 
-![CAD Model](docs/images/cad_model.png)
+![CAD Model](docs/images/cad_model.png)\
 *Custom CAD design of the SpotMicro-class chassis and leg assemblies*
 
 </div>
@@ -46,7 +46,7 @@ The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platfor
 <!-- TODO: Add wiring diagram / electronics photo here -->
 <div align="center">
 
-![Electronics Wiring](docs/images/electronics_wiring.png)
+![Electronics Wiring](docs/images/electronics_wiring.png)\
 *Wiring diagram: STM32 controller, MG996R servos, power distribution, and sensors*
 
 </div>
