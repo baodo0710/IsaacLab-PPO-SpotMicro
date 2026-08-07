@@ -28,6 +28,30 @@ The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platfor
 
 ---
 
+## Hardware & Electronics
+
+### Custom CAD Model
+
+<!-- TODO: Add CAD model renders/screenshots here -->
+<div align="center">
+
+![CAD Model](docs/images/cad_model.png)
+*Custom CAD design of the SpotMicro-class chassis and leg assemblies*
+
+</div>
+
+### Electronics & Wiring
+
+<!-- TODO: Add wiring diagram / electronics photo here -->
+<div align="center">
+
+![Electronics Wiring](docs/images/electronics_wiring.png)
+*Wiring diagram: STM32 controller, MG996R servos, power distribution, and sensors*
+
+</div>
+
+---
+
 ## Environments
 
 Six Gym-registered tasks cover the full training-to-deployment lifecycle:
