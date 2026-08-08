@@ -138,14 +138,6 @@ python scripts/rsl_rl/train.py --task Isaac-Velocity-Flat-Rex-v0 --headless
 python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 ```
 
-
-<div align="center">
-
-![Trained Gait](docs/images/trained_gait.gif)
-*Trained trotting gait on flat terrain*
-
-</div>
-
 ---
 
 ## Results
