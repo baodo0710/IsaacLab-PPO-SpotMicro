@@ -1,4 +1,4 @@
-# Rex — Quadruped Locomotion in Isaac Lab
+# Rex — Quadruped Locomotion in Isaac Lab (WIP)
 
 <div align="center">
     
