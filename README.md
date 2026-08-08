@@ -43,6 +43,7 @@ The robot asset (`spot2.usd`) is customized after the open-source SpotMicro plat
 
 ### Electronics & Wiring
 
+Wiring.md provides a detailed wiring pinout.
 <!-- TODO: Add wiring diagram / electronics photo here -->
 <div align="center">
 
@@ -155,7 +156,18 @@ Resulting videos are attached in docs folder
 
 ## Sim-to-Sim Validation
 
-Trained policies are cross-validated in a secondary simulator before hardware deployment, to catch policy artifacts specific to Isaac Lab's physics before they hit the real robot.
+Before deploying on physical hardware, trained policies are validated through **sim-to-sim transfer** from Isaac Lab to PyBullet.
+
+### Pipeline
+
+1. **Train in Isaac Lab** — Export the trained policy checkpoint (`.pt`) after convergence on flat or rough terrain.
+2. **Convert to ONNX** — Use Isaac Lab's export utility to convert the PyTorch policy to ONNX format for framework-agnostic inference.
+3. **Load in PyBullet** — Instantiate a PyBullet simulation of the SpotMicro URDF with matching joint limits, mass properties, and actuator dynamics on the Jetson Orin Nano.
+4. **Run inference** — Feed identical velocity commands and compare trajectories, foot contact patterns, and stability margins between Isaac Lab and PyBullet.
+
+### Purpose
+
+Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-real gaps**. If the policy fails in PyBullet but works in Isaac Lab, the issue lies in physics parameterization (friction, contact stiffness, timestep) rather than the policy itself. This step ensures the policy is robust enough to survive the transition to a different simulator — a necessary precondition for sim-to-real deployment on the physical SpotMicro.
 
 Sim-to-Sim videos are attached in docs folder
 
