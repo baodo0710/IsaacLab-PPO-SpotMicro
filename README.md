@@ -17,7 +17,7 @@
 
 **Rex** is a custom work-in-progress manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
 
-The robot asset (`spot2.usd`) is modeled after the open-source SpotMicro platform and driven by realistic MG996R servo actuator dynamics.
+The robot asset (`spot2.usd`) is customized after the open-source SpotMicro platform and driven by 12 MG996R servos.
 
 <!-- TODO: Add side-by-side sim vs. real photo here -->
 <div align="center">
@@ -115,7 +115,7 @@ Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
 
 ### Installation
 
-Rex is designed as a native Isaac Lab task extension. Place the package under:
+The RL training pipeline, reward shaping, and environment configuration were studied and implemented from the existing ANYmal locomotion training setup in Isaac Lab. The ANYmal reference provides the foundational velocity-tracking locomotion framework, domain randomization strategy, and curriculum design that Rex builds upon — adapted for a smaller servo-actuated quadruped platform. Place the package under:
 
 ```bash
 source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/rex/
@@ -164,3 +164,11 @@ Sim-to-Sim videos are attached in docs folder
 ## License
 
 *Pending*
+
+---
+
+## References
+
+robot mania, How to Train a Custom Quadruped Robot to Walk Using Isaac Lab. (Mar. 9, 2025). Accessed: Aug. 7, 2026. [Online Video]. Available: https://www.youtube.com/watch?v=z62oU4hM1xM
+O. Omotuyi, D. Hoeller, and T. Burnham, "Closing the Sim-to-Real Gap: Training Spot Quadruped Locomotion with NVIDIA Isaac Lab," NVIDIA Technical Blog, Jun. 17, 2024. Accessed: Aug. 7, 2026. [Online]. Available: https://developer.nvidia.com/blog/closing-the-sim-to-real-gap-training-spot-quadruped-locomotion-with-nvidia-isaac-lab/
+SpotMicroAI, "SpotMicroAI Documentation," SpotMicroAI, 2026. Accessed: Aug. 7, 2026. [Online]. Available: https://spotmicroai.readthedocs.io/en/latest/
