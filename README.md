@@ -38,9 +38,9 @@ The robot asset (`spot2.usd`) is customized after the open-source SpotMicro plat
 <div align="center">
 
 ![Simulation vs Reality](docs/images/sim_vs_real.png)\
-*Left: Isaac Lab simulation | Right: Target hardware platform*
+*Left: Isaac Lab simulation | Right: Target hardware platform*\
 ![IsaacLab](docs/videos/isaaclab.gif)\
-*Left: Isaac Lab simulation | Right: Target hardware platform*
+*IsaacLab Platform*
 
 </div>
 
@@ -162,8 +162,8 @@ Or register it as an external extension per the [official docs](https://isaac-si
 <div align="center">
 
 ![Walking Result](docs/videos/Flatwalking.gif)\
-*Original Flat Terrain walking policy*
-![DomainRandomization](docs/videos/rl-video-step-0.mp4)\
+*Original Flat Terrain walking policy*\
+![DomainRandomization](docs/videos/rl-video-step-0.gif)\
 *Final Flat Terrain with domain randomization*
 
 </div>
@@ -188,8 +188,8 @@ Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-re
 <div align="center">
 
 ![S2S](docs/videos/strafe2.gif)\
-![S2S1](docs/videos/strafe.gif)\
-![S2S2](docs/videos/walk2.gif)\
+![Sim](docs/videos/strafe.gif)\
+![Sim1](docs/videos/walk.gif)\
 *Sim to Sim result with different velocity commands*
 
 </div>
