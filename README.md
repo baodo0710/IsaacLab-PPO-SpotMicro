@@ -37,9 +37,9 @@ The robot asset (`spot2.usd`) is customized after the open-source SpotMicro plat
 <div align="center">
 
 ![Simulation vs Reality](docs/images/sim_vs_real.png)\
-*Left: Isaac Lab simulation | Right: Target hardware platform*\
+*Left: Isaac Sim simulation | Right: Target hardware platform*\
 ![IsaacLab](docs/videos/isaaclab.gif)\
-*IsaacLab Platform*
+*Isaac Sim Platform*
 
 </div>
 
