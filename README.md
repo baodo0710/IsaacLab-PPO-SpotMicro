@@ -13,6 +13,21 @@
 
 ---
 
+## Origins: Pygame Simulation on Raspberry Pi
+
+Before bringing Rex into NVIDIA Isaac Lab, the project began as a lightweight, from-scratch kinematic simulator running on a **Raspberry Pi 4B**. Using **Pygame**, the entire quadruped was modeled and visualized **joint by joint, frame by frame** — a ground-up approach to understanding the robot's forward kinematics, joint limits, and gait sequencing without GPU acceleration or a physics engine.
+
+<div align="center">
+    
+![Pygame Quadruped Simulation on Raspberry Pi 4B](docs/images/rex_pygame_origin.png)\
+**Early Pygame prototype:** Joint-angle visualization and servo control logic running natively on Raspberry Pi 4B
+
+</div>
+
+This stage served as the architectural foundation for the project: validating the 12-DOF leg kinematics, defining the joint coordinate frames, and establishing the real-time control loop that would later scale into the full RL pipeline in Isaac Lab.
+
+---
+
 ## Overview
 
 **Rex** is a custom **work-in-progress** manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
