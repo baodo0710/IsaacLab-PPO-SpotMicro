@@ -39,6 +39,8 @@ The robot asset (`spot2.usd`) is customized after the open-source SpotMicro plat
 
 ![Simulation vs Reality](docs/images/sim_vs_real.png)\
 *Left: Isaac Lab simulation | Right: Target hardware platform*
+![IsaacLab](docs/videos/isaaclab.gif)\
+*Left: Isaac Lab simulation | Right: Target hardware platform*
 
 </div>
 
@@ -145,19 +147,26 @@ Or register it as an external extension per the [official docs](https://isaac-si
 
 **Flat terrain (RSL-RL):**
 ```bash
-python scripts/rsl_rl/train.py --task Isaac-Velocity-Flat-Rex-v0 --headless
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task Isaac-Velocity-Flat-Rex-v0 --headless
 ```
 
 **Rough terrain (RSL-RL):**
 ```bash
-python scripts/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task Isaac-Velocity-Rough-Rex-v0 --headless
 ```
 
 ---
 
 ## Results
 
-Resulting videos are attached in docs folder
+<div align="center">
+
+![Walking Result](docs/videos/Flatwalking.gif)\
+*Original Flat Terrain walking policy*
+![DomainRandomization](docs/videos/rl-video-step-0.mp4)\
+*Final Flat Terrain with domain randomization*
+
+</div>
 
 ---
 
@@ -176,7 +185,16 @@ Before deploying on physical hardware, trained policies are validated through **
 
 Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-real gaps**. If the policy fails in PyBullet but works in Isaac Lab, the issue lies in physics parameterization (friction, contact stiffness, timestep) rather than the policy itself. This step ensures the policy is robust enough to survive the transition to a different simulator — a necessary precondition for sim-to-real deployment on the physical SpotMicro.
 
-Sim-to-Sim videos are attached in docs folder
+<div align="center">
+
+![S2S](docs/videos/strafe2.gif)\
+
+![S2S1](docs/videos/strafe.gif)\
+
+![S2S2](docs/videos/walk2.gif)\
+*Sim to Sim result with different velocity commands*
+
+</div>
 
 ---
 
