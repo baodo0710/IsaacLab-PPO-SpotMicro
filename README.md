@@ -7,7 +7,6 @@
 
 [![Isaac Lab](https://img.shields.io/badge/Built%20on-Isaac%20Lab-orange)](https://isaac-sim.github.io/IsaacLab/)
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-Pending-lightgrey)]()
 
 </div>
 
