@@ -188,9 +188,7 @@ Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-re
 <div align="center">
 
 ![S2S](docs/videos/strafe2.gif)\
-
 ![S2S1](docs/videos/strafe.gif)\
-
 ![S2S2](docs/videos/walk2.gif)\
 *Sim to Sim result with different velocity commands*
 
