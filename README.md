@@ -3,7 +3,7 @@
 <div align="center">
     
 ![Rex Quadruped Render](docs/images/rex_hero.png)\
-**A high-fidelity reinforcement learning framework for SpotMicro-class quadruped locomotion**
+**A large-scale reinforcement learning framework for servo-actuated SpotMicro-class quadruped locomotion with systematic sim-to-sim validation**
 
 [![Isaac Lab](https://img.shields.io/badge/Built%20on-Isaac%20Lab-orange)](https://isaac-sim.github.io/IsaacLab/)
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
@@ -14,32 +14,33 @@
 
 ## Origins: Pygame Simulation on Raspberry Pi
 
-Before bringing Rex into NVIDIA Isaac Lab, the project began as a lightweight, from-scratch kinematic simulator running on a **Raspberry Pi 4B**. Using **Pygame**, the entire quadruped was modeled and visualized **joint by joint, frame by frame** — a ground-up approach to understanding the robot's forward kinematics, joint limits, and gait sequencing without GPU acceleration or a physics engine.
+Before scaling Rex into NVIDIA Isaac Lab's GPU-accelerated simulation framework, the project originated as a minimal, from-scratch kinematic simulator executing on a **Raspberry Pi 4B**. Using **Pygame**, the complete 12-DOF quadruped was modeled and visualized **joint by joint, frame by frame**, a ground-up methodology for validating forward kinematics, joint-limit constraints, and gait sequencing without reliance on GPU acceleration or a commercial physics engine.
 
 <div align="center">
     
 ![Pygame Quadruped Simulation on Raspberry Pi 4B](docs/images/rex_pygame_origin.png)\
-**Early Pygame prototype:** Joint-angle visualization and servo control logic running natively on Raspberry Pi 4B
+**Early embedded prototype:** Joint-angle visualization and real-time servo control logic executing natively on Raspberry Pi 4B
 
 </div>
 
-This stage served as the architectural foundation for the project: validating the 12-DOF leg kinematics, defining the joint coordinate frames, and establishing the real-time control loop that would later scale into the full RL pipeline in Isaac Lab.
+This stage served as the architectural and kinematic foundation for the project: validating the 12-DOF leg kinematics, establishing joint coordinate frames and Denavit-Hartenberg parameters, and constructing the real-time control loop that would subsequently scale into the full reinforcement learning pipeline in Isaac Lab.
 
 ---
 
 ## Overview
 
-**Rex** is a custom **work-in-progress** manager-based RL task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that brings a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated simulation framework. Built on Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits with full domain randomization.
+**Rex** is a custom **work-in-progress** manager-based reinforcement learning task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that integrates a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated physics simulation framework. Built atop Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits under comprehensive domain randomization, with a formal sim-to-sim validation pipeline isolating physics-engine discrepancies from policy-level failures.
 
-The robot asset (`spot2.usd`) is customized after the open-source SpotMicro platform and driven by 12 MG996R servos.
+The robot asset (`spot2.usd`) is customized after the open-source SpotMicro platform and actuated by 12 MG996R servo motors, with actuator dynamics modeled to capture torque-speed saturation, backlash, and discretization effects inherent to low-cost servo hardware.
 
 <!-- TODO: Add side-by-side sim vs. real photo here -->
 <div align="center">
 
 ![Simulation vs Reality](docs/images/sim_vs_real.png)\
-*Left: Isaac Sim simulation | Right: Target hardware platform*\
+*Left: Isaac Sim high-fidelity simulation | Right: Target physical hardware platform*
+
 ![IsaacLab](docs/videos/isaaclab.gif)\
-*Isaac Sim Platform*
+*Isaac Sim training platform*
 
 </div>
 
@@ -53,14 +54,13 @@ The robot asset (`spot2.usd`) is customized after the open-source SpotMicro plat
 <div align="center">
 
 ![CAD Model](docs/images/cad_model.png)\
-*Custom CAD design of the SpotMicro-class chassis and leg assemblies*
+*Custom CAD design of the SpotMicro-class chassis*
 
 </div>
 
 ### Electronics & Wiring
 
 Wiring.md provides a detailed wiring pinout.
-<!-- TODO: Add wiring diagram / electronics photo here -->
 <div align="center">
 
 ![Electronics Wiring](docs/images/electronics_wiring.png)\
@@ -72,7 +72,7 @@ Wiring.md provides a detailed wiring pinout.
 
 ## Environments
 
-Six Gym-registered tasks cover the full training-to-deployment lifecycle:
+Six Gym-registered tasks provide a complete training-to-deployment lifecycle spanning velocity tracking, postural stability, and systematic evaluation:
 
 | Task ID | Config Class | Description |
 |---|---|---|
@@ -112,13 +112,6 @@ rex/
     ├── skrl_flat_ppo_cfg.yaml
     └── skrl_rough_ppo_cfg.yaml
 ```
-## Multi-Framework RL Support
-
-Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
-
-| Framework | Status | Notes |
-|---|---|---|
-| **RSL-RL** | ✅ Ready | On-policy PPO with recurrent state encoders |
 
 ---
 
@@ -132,7 +125,7 @@ Rex ships with pre-tuned hyperparameters for three major Isaac Lab RL backends:
 
 ### Installation
 
-The RL training pipeline, reward shaping, and environment configuration were studied and implemented from the existing ANYmal locomotion training setup in Isaac Lab. The ANYmal reference provides the foundational velocity-tracking locomotion framework, domain randomization strategy, and curriculum design that Rex builds upon — adapted for a smaller servo-actuated quadruped platform. Place the package under:
+The reinforcement learning training pipeline, reward-shaping strategy, and environment configuration extend the existing ANYmal locomotion framework in Isaac Lab. The ANYmal reference provides the foundational velocity-tracking locomotion architecture, while domain-randomization methodology, and curriculum design are built from scratch, systematically adapted for a smaller, servo-actuated quadruped platform with discrete actuator dynamics. Place the package under:
 
 ```bash
 source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/rex/
@@ -161,35 +154,49 @@ Or register it as an external extension per the [official docs](https://isaac-si
 <div align="center">
 
 ![Walking Result](docs/videos/Flatwalking.gif)\
-*Original Flat Terrain walking policy*\
+*Baseline flat-terrain walking policy without domain randomization*\
 ![DomainRandomization](docs/videos/rl-video-step-0.gif)\
 *Final Flat Terrain with domain randomization*
 
 </div>
 
+### Terrain-Scale Mismatch and Platform Kinematic Constraints
+
+A critical prerequisite for rough-terrain training on the Rex platform is the recognition that **standard Isaac Lab rough terrain is kinematically incompatible with the SpotMicro form factor**. The SpotMicro is a small-scale quadruped with limited ground clearance, short leg stroke, and MG996R servo actuators that exhibit bounded torque and positional accuracy. Standard procedurally generated rough terrain — designed for full-size platforms such as ANYmal or Unitree Go2 — features obstacle gaps, height-field amplitudes, and slope gradients that exceed the reachable workspace and collision-free envelope of the 12-DOF SpotMicro leg kinematics.
+
+Preliminary evaluation confirmed that the default rough-terrain configuration produces **frequent self-collision between the chassis and terrain features**, **kinematic singularities in the leg Jacobian during stance**, and **saturated actuator commands** that destabilize the policy before any meaningful learning signal can accumulate. The root cause is not policy failure but a **mismatch between terrain geometry and the robot's physical scale**: terrain perturbations on the order of the robot's hip height cannot be treated as traversable obstacles for a platform with centimeter-scale leg stroke.
+
+Consequently, rough-terrain training for Rex requires **customized terrain generation** with parameters scaled to the SpotMicro kinematic envelope. Specifically:
+
+- **Height-field amplitude** must be bounded to a fraction of the leg's maximum vertical stroke, ensuring the base remains within the statically reachable workspace without requiring extreme joint configurations.
+- **Obstacle gap spacing** must not exceed the maximum reachable stride length derived from the forward kinematics, preventing the policy from being asked to span unachievable distances.
+- **Slope gradients** must respect the friction-limited tipping margin of the small chassis, whose center of mass sits close to the support polygon boundary under even modest inclines.
+
+This constraint is methodological, not merely engineering: training against terrain that the hardware cannot physically traverse would produce a **distributional mismatch between training and deployment**, causing the policy to learn recovery behaviors that are kinematically unrealizable on the physical platform. The customized rough-terrain curriculum — currently under development — will be validated against the embedded Pygame kinematic model and the CAD-derived reachable workspace before integration into the Isaac Lab training pipeline.
+
 ---
 
 ## Sim-to-Sim Validation
 
-Before deploying on physical hardware, trained policies are validated through **sim-to-sim transfer** from Isaac Lab to PyBullet.
+Before physical hardware deployment, trained policies undergo systematic **sim-to-sim transfer validation** from Isaac Lab to PyBullet.
 
-### Pipeline
+### Validation Pipeline
 
 1. **Train in Isaac Lab** — Export the trained policy checkpoint (`.pt`) after convergence on flat or rough terrain.
-2. **Convert to ONNX** — Use Isaac Lab's export utility to convert the PyTorch policy to ONNX format for framework-agnostic inference.
-3. **Load in PyBullet** — Instantiate a PyBullet simulation of the SpotMicro URDF with matching joint limits, mass properties, and actuator dynamics on the Jetson Orin Nano.
-4. **Run inference** — Feed identical velocity commands and compare trajectories, foot contact patterns, and stability margins between Isaac Lab and PyBullet.
+2. **Convert to ONNX** — Use Isaac Lab's export utility to convert the PyTorch policy into ONNX format for framework-agnostic inference.
+3. **Load in PyBullet** — Instantiate a PyBullet simulation of the SpotMicro URDF with matched joint limits, inertial properties, and actuator dynamics on the Jetson Orin Nano embedded platform.
+4. **Run inference** — Feed identical velocity commands and quantitatively compare base trajectories, foot contact patterns, and stability margins between Isaac Lab and PyBullet.
 
-### Purpose
+### Methodological Purpose
 
-Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-real gaps**. If the policy fails in PyBullet but works in Isaac Lab, the issue lies in physics parameterization (friction, contact stiffness, timestep) rather than the policy itself. This step ensures the policy is robust enough to survive the transition to a different simulator — a necessary precondition for sim-to-real deployment on the physical SpotMicro.
+Sim-to-sim validation isolates **physics-engine discrepancies** from **sim-to-real gaps**. If the policy fails in PyBullet while performing reliably in Isaac Lab, the failure mode lies in physics parameterization (contact friction, stiffness, integration timestep) rather than in the policy's learned representation. This step provides a necessary precondition for sim-to-real deployment by ensuring the policy is sufficiently robust to survive transitions across divergent physics engines — a proxy for the perturbations encountered on physical hardware.
 
 <div align="center">
 
 ![S2S](docs/videos/strafe2.gif)\
 ![Sim](docs/videos/strafe.gif)\
 ![Sim1](docs/videos/walk.gif)\
-*Sim to Sim result with different velocity commands*
+*Sim-to-sim transfer results under varying velocity commands*
 
 </div>
 
@@ -203,7 +210,7 @@ Licensed under the Apache License 2.0. See the `LICENSE` file for the full text.
 
 ## ⚠️ Disclaimer
 
-This repository controls physical hardware (servo-actuated legs). Trained policies and control code may cause unexpected or unsafe motion. Use at your own risk — test in simulation first, keep clear of the robot during physical trials, and use appropriate safety measures (e-stop, clearance, supervision) before running on real hardware. The author(s) assume no liability for damage, injury, or loss resulting from use of this code or any hardware built to match it.
+This repository interfaces with physical hardware (servo-actuated legged systems). Trained policies and control code may produce unexpected or dynamically unsafe motion. Use at your own risk — validate thoroughly in simulation first, maintain physical clearance during hardware trials, and employ appropriate safety measures (emergency stop, supervision, protective equipment) before operating on real hardware. The author(s) assume no liability for damage, injury, or loss resulting from use of this code or any hardware built to match it.
 
 ---
 
