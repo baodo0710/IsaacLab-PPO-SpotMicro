@@ -1,4 +1,4 @@
-# Rex — Quadruped Locomotion in Isaac Lab (WIP)
+# Rex — Quadruped Locomotion in Isaac Lab
 
 <div align="center">
     
@@ -29,7 +29,7 @@ This stage served as the architectural and kinematic foundation for the project:
 
 ## Overview
 
-**Rex** is a custom **work-in-progress** manager-based reinforcement learning task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that integrates a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated physics simulation framework. Built atop Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits under comprehensive domain randomization, with a formal sim-to-sim validation pipeline isolating physics-engine discrepancies from policy-level failures.
+**Rex** is a custom manager-based reinforcement learning task extension for [Isaac Lab](https://isaac-sim.github.io/IsaacLab/) that integrates a servo-actuated SpotMicro-class quadruped (https://spotmicroai.readthedocs.io/en/latest/) into NVIDIA's GPU-accelerated physics simulation framework. Built atop Isaac Lab's velocity-tracking locomotion pipeline, Rex enables large-scale parallel training of robust, terrain-adaptive gaits under comprehensive domain randomization, with a formal sim-to-sim validation pipeline isolating physics-engine discrepancies from policy-level failures.
 
 The robot asset (`spot2.usd`) is customized after the open-source SpotMicro platform and actuated by 12 MG996R servo motors, with actuator dynamics modeled to capture torque-speed saturation, backlash, and discretization effects inherent to low-cost servo hardware.
 
@@ -172,7 +172,11 @@ Consequently, rough-terrain training for Rex requires **customized terrain gener
 - **Obstacle gap spacing** must not exceed the maximum reachable stride length derived from the forward kinematics, preventing the policy from being asked to span unachievable distances.
 - **Slope gradients** must respect the friction-limited tipping margin of the small chassis, whose center of mass sits close to the support polygon boundary under even modest inclines.
 
-This constraint is methodological, not merely engineering: training against terrain that the hardware cannot physically traverse would produce a **distributional mismatch between training and deployment**, causing the policy to learn recovery behaviors that are kinematically unrealizable on the physical platform. The customized rough-terrain curriculum — currently under development — will be validated against the embedded Pygame kinematic model and the CAD-derived reachable workspace before integration into the Isaac Lab training pipeline.
+This constraint is methodological, not merely engineering: training against terrain that the hardware cannot physically traverse would produce a **distributional mismatch between training and deployment**, causing the policy to learn recovery behaviors that are kinematically unrealizable on the physical platform. The customized rough-terrain curriculum was validated against the embedded Pygame kinematic model and the CAD-derived reachable workspace before integration into the Isaac Lab training pipeline.
+
+### Joint Mapping
+
+Isaac Lab's articulation joint ordering does not follow a per-leg (hip-elbow-knee-toe) grouping. Instead, joints are indexed **by joint type across all four legs before moving to the next type** — all four elbow joints first, then all four knee joints, then all four toe joints. This ordering must be respected when mapping actuator commands, observations, and the DCMotorCfg actuator model to the physical MG996R servos, or joint commands will be applied to the wrong physical joint.
 
 ---
 
