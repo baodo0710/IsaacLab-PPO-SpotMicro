@@ -12,6 +12,12 @@
 
 ---
 
+## Abstract
+
+This work presents Rex, a reinforcement learning framework for servo-actuated, SpotMicro-class quadruped locomotion built on NVIDIA Isaac Lab's GPU-accelerated simulation platform. The project originated as a from-scratch kinematic simulator running on a Raspberry Pi 4B, using Pygame to validate 12-DOF forward kinematics, joint-limit constraints, and gait sequencing before scaling into large-scale parallel RL training. Extending Isaac Lab's ANYmal-based velocity-tracking pipeline, Rex integrates a custom actuator model for 12 MG996R servo motors that captures torque-speed saturation, backlash, and discretization effects characteristic of low-cost hardware. Six Gym-registered environments support flat-terrain and rough-terrain velocity tracking as well as static balance tasks, each with corresponding deterministic evaluation variants. A key contribution is the identification and correction of a terrain-scale mismatch: standard Isaac Lab rough-terrain generation, calibrated for full-size platforms, produces obstacle geometries that exceed the SpotMicro's leg stroke and workspace envelope, causing self-collision, Jacobian singularities, and actuator saturation. A customized terrain curriculum, bounded by the platform's kinematic and stability limits and validated against the embedded Pygame model, resolves this mismatch. Prior to hardware deployment, trained policies undergo systematic sim-to-sim validation, exported via ONNX and re-evaluated in PyBullet on a Jetson Orin Nano, to isolate physics-engine discrepancies from sim-to-real transfer failures. Results demonstrate robust flat-terrain locomotion under domain randomization and consistent behavior across simulation platforms, establishing a validated pipeline toward physical deployment.
+
+---
+
 ## Origins: Pygame Simulation on Raspberry Pi
 
 Before scaling Rex into NVIDIA Isaac Lab's GPU-accelerated simulation framework, the project originated as a minimal, from-scratch kinematic simulator executing on a **Raspberry Pi 4B**. Using **Pygame**, the complete 12-DOF quadruped was modeled and visualized **joint by joint, frame by frame**, a ground-up methodology for validating forward kinematics, joint-limit constraints, and gait sequencing without reliance on GPU acceleration or a commercial physics engine.
