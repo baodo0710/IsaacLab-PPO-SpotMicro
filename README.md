@@ -101,6 +101,19 @@ Six Gym-registered tasks provide a complete training-to-deployment lifecycle spa
 
 ## System Architecture
 
+The overall Rex training, simulation, validation, and hardware deployment
+pipeline is shown below.
+
+<div align="center">
+
+![Rex System Architecture](docs/images/diagram.png)\
+*Overall system architecture: RL training, Isaac Lab integration, sim-to-sim
+validation, and hardware deployment*
+
+</div>
+
+### Repository Structure
+
 ```
 rex/
 ├── __init__.py                  # Gym environment registration (6 tasks)
